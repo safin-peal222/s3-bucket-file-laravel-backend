@@ -30,4 +30,8 @@ Route::get('/', function () {
 //  Route::get('/get-data/{id}', [UserController::class, 'updateData']);
 //  Route::post('/get-data', [UserController::class, 'updateIt']);
 Route::post('/post', [UserController::class, 'postfile']);
+Route::post('/deletedfile', [UserController::class, 'deletefile']);
 Route::get('/download/{name}', [UserController::class, 'downloadfile']);
+Route::get('/getname', [UserController::class, 'getFile']);
+
+

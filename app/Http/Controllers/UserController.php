@@ -68,7 +68,7 @@ return $user;
    //$path = $name->store('uploads', 'public');
 //    $path = Storage::disk('s3')->put('uploads', $name, 'public');
 
-   $path = $request->file('image')->store('uploads', 'public');
+   $path = $request->file('image')->store('uploads', 's3');
    //$name= $request->file('image')->store('uploads');
    $character = "/";
    $index=strpos($path,$character);
@@ -109,7 +109,7 @@ return $user;
 //         $filePath,now()->addMinutes(5)
 //    );
 
-// //     return \Response::make(Storage::disk('s3')->download(' ',$name));
+  //$fileContents=Response::make(Storage::disk('s3')->download('uploads',$name));
 //     return response()->download($temporaryUrl);
 
 
@@ -118,8 +118,18 @@ return response($fileContents, 200, [
     'Content-Disposition' => 'attachment; name="' . $name . '"',
 ]);
 
-//return $fileContents;
+//return $name;
         
     }
 
+public function getFile(){
+     $users=MyModel::all();
+     return $users;
 }
+public function deletefile(Request $request){
+    $fileContents = Storage::disk('s3')->delete('uploads/'.$request->name);
+    $file=MyModel::where('filename', $request->name)->delete();
+       return $file;
+}
+}
+
